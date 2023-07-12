@@ -1,0 +1,15 @@
+{
+    "Login": "ログイン",
+    "Email Address": "メールアドレス",
+    "Password": "パスワード",
+    "Remember me": "ログイン状態を保存する",
+    "Forgot Your Password?": "パスワードを忘れた場合",
+    "Reset Password": "パスワード再登録",
+    "Send Passowrd Reset Link": "パスワード再登録用リンク",
+    "Register": "新規登録",
+    "Name": "ユーザー名",
+    "Confirm Password": "パスワード（確認用）",
+    "Logout": "ログアウト",
+    "Reset Password Notification": "パスワード再登録のお知らせ",
+    "Hello": "こんにちは!"
+}
