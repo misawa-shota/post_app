@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\StoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('products', ProductController::class)->middleware(['auth', 'verified']);
+Route::resource('stores', StoreController::class)->middleware(['auth', 'verified']);
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('stores', StoreController::class);
