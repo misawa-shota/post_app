@@ -13,7 +13,7 @@
 </div>
 <div>
     <strong>説明：</strong>
-    {{ $store->store_description }}
+    {!! nl2br(e($store->store_description)) !!}
 </div>
 <div>
     <strong>価格帯：</strong>

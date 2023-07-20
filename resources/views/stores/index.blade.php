@@ -17,7 +17,7 @@
     @foreach ($stores as $store)
         <tr>
             <td>{{ $store->store_name }}</td>
-            <td>{{ $store->store_description }}</td>
+            <td>{!! nl2br(e($store->store_description)) !!}</td>
             <td>{{ $store->price }}</td>
             <td>{{ $store->postal_code }}</td>
             <td>{{ $store->address }}</td>
