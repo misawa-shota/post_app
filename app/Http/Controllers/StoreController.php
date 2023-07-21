@@ -57,6 +57,10 @@ class StoreController extends Controller
         $store->open_time = $request->input('open_time');
         $store->regular_holiday = $request->input('regular_holiday');
         $store->seating_number = $request->input('seating_number');
+        $original = request()->file('store_img')->getClientOriginalName();
+        $name = date('Ymd_His').'_'.$original;
+        request()->file('store_img')->move('img', $name);
+        $store->store_img = $name;
 
         $store->save();
 
@@ -104,6 +108,10 @@ class StoreController extends Controller
             'address.required' => '住所を入力してください。',
         ]);
 
+        $original = request()->file('store_img')->getClientOriginalName();
+        $name = date('Ymd_His').'_'.$original;
+        request()->file('store_img')->move('img', $name);
+        $store->store_img = $name;
         $store->store_name = $request->input('store_name');
         $store->store_description = $request->input('store_description');
         $store->price = $request->input('price');
@@ -112,6 +120,7 @@ class StoreController extends Controller
         $store->open_time = $request->input('open_time');
         $store->regular_holiday = $request->input('regular_holiday');
         $store->seating_number = $request->input('seating_number');
+        $store->store_img = $request->input('store_img');
         $store->categories()->sync($request->input('category_ids'));
 
         $store->update();

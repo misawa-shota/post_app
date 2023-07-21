@@ -4,6 +4,7 @@
 @endif
 <table>
     <tr>
+        <th>店舗画像</th>
         <th>店舗名</th>
         <th>店舗説明</th>
         <th>価格帯</th>
@@ -16,6 +17,7 @@
     </tr>
     @foreach ($stores as $store)
         <tr>
+            <td><img src="{{ asset('img/'.$store->store_img) }}" alt="お店の画像"></td>
             <td>{{ $store->store_name }}</td>
             <td>{!! nl2br(e($store->store_description)) !!}</td>
             <td>{{ $store->price }}</td>

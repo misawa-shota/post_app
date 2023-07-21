@@ -13,9 +13,13 @@
         </ul>
     </div>
 @endif
-<form action="{{ route('stores.update', $store->id) }}" method="post">
+<form action="{{ route('stores.update', $store->id) }}" method="post" enctype="multipart/form-data">
     @csrf
     @method('patch')
+    <div>
+        <strong>店舗画像：</strong>
+        <input type="file" name="store_img">
+    </div>
     <div>
         <strong>店舗名：</strong>
         <input type="text" name="store_name" placeholder="店舗名" value="{{ old('store_name', $store->store_name) }}">

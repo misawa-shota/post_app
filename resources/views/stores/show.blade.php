@@ -8,6 +8,10 @@
     <p>{{ session('flash_message') }}</p>
 @endif
 <div>
+    <strong>店舗画像：</strong>
+    <img src="{{ asset('img/'.$store->store_img) }}" alt="お店の画像">
+</div>
+<div>
     <strong>店舗名：</strong>
     {{ $store->store_name }}
 </div>
