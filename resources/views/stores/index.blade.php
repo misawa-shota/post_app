@@ -1,45 +1,34 @@
-<a href="{{ route('stores.create') }}">お店の追加</a>
-@if (session('flash_message'))
-    <p>{{ session('flash_message') }}</p>
-@endif
-<table>
-    <tr>
-        <th>店舗画像</th>
-        <th>店舗名</th>
-        <th>店舗説明</th>
-        <th>価格帯</th>
-        <th>郵便番号</th>
-        <th>住所</th>
-        <th>営業時間</th>
-        <th>定休日</th>
-        <th>座席数</th>
-        <th>カテゴリー</th>
-    </tr>
-    @foreach ($stores as $store)
-        <tr>
-            <td><img src="{{ asset('img/'.$store->store_img) }}" alt="お店の画像"></td>
-            <td>{{ $store->store_name }}</td>
-            <td>{!! nl2br(e($store->store_description)) !!}</td>
-            <td>{{ $store->price }}</td>
-            <td>{{ $store->postal_code }}</td>
-            <td>{{ $store->address }}</td>
-            <td>{{ $store->open_time }}</td>
-            <td>{{ $store->regular_holiday }}</td>
-            <td>{{ $store->seating_number }}</td>
-            <td>
-                @foreach ($store->categories()->orderBy('id', 'asc')->get() as $category)
-                    <span>{{ $category->name }}</span>
-                @endforeach
-            </td>
-            <td>
-                <form action="{{ route('stores.destroy', $store->id) }}" method="post">
-                    <a href="{{ route('stores.show', $store->id) }}">詳細を見る</a>
-                    <a href="{{ route('stores.edit', $store->id) }}">編集する</a>
-                    @csrf
-                    @method('delete')
-                    <button type="submit">削除する</button>
-                </form>
-            </td>
-        </tr>
-    @endforeach
-</table>
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        @if (session('flash_message'))
+            <p class="text-primary">{{ session('flash_message') }}</p>
+        @endif
+        @foreach ($stores as $store)
+            <a href="{{ route('stores.show', $store->id) }}" class="store_card text-decoration-none mb-3">
+                <span class="card store_card_label">
+                    <span class="row g-0">
+                        <span class="col-md-4">
+                            <img src="{{ asset('img/'.$store->store_img) }}" alt="お店の画像" class="card-img-top store_card_label">
+                        </span>
+                        <span class="col-md-8">
+                            <span class="card-body store_card_label">
+                                <dl>
+                                    <dt class="fs-4 mb-1">{{ $store->store_name }}</dt>
+                                    <dd class="border-bottom border-secondary pb-1 mb-4">
+                                        @foreach ($store->categories()->orderBy('id', 'asc')->get() as $category)
+                                            <span class="me-2">{{ $category->name }}</span>
+                                        @endforeach
+                                    </dd>
+                                    <dd>{{ $store->price }}</dd>
+                                    <dd>{!! nl2br(e($store->store_description)) !!}</dd>
+                                </dl>
+                            </span>
+                        </span>
+                    </span>
+                </span>
+            </a>
+        @endforeach
+    </div>
+@endsection

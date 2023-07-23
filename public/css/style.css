@@ -1,0 +1,8 @@
+.store_card,
+.store_card_label {
+    display: block;
+}
+
+.store_card:hover {
+    opacity: 0.8;
+}
