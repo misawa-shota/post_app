@@ -6,3 +6,7 @@
 .store_card:hover {
     opacity: 0.8;
 }
+
+.footer_bg {
+    background-color: #D9D9D9;
+}
