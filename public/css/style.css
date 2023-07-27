@@ -10,3 +10,90 @@
 .footer_bg {
     background-color: #D9D9D9;
 }
+
+/* 詳細ページ */
+.nav-item.active {
+    background-color: blue;
+    border-radius: 6px 6px 0 0;
+}
+
+.nav-item.active a {
+    color: white;
+}
+
+.area {
+    display: none;
+    opacity: 0;
+    background: #fff;
+}
+
+.area.active {
+    display: block;
+    opacity: 1;
+}
+
+/* レビュー星評価（表示用） */
+.rate {
+    position: relative;
+    display: inline-block;
+    width: 150px;
+    height: 30px;
+    font-size: 30px;
+    padding-bottom: 35px;
+}
+
+.rate::before,
+.rate::after {
+    position: absolute;
+    display: inline-block;
+    height: 30px;
+    content: '★★★★★';
+    line-height: 30px;
+}
+
+.rate::before {
+    color: #c4c4c4;
+}
+
+.rate::after {
+    overflow: hidden;
+    width: calc(var(--score) * 30px);
+    color: #ffb906;
+}
+
+/* レビュー星評価（レビュー投稿用） */
+.rate-form {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.rate-form input[type=radio] {
+    display: none;
+}
+
+.rate-form label {
+    position: relative;
+    padding: 0 5px;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 35px;
+}
+
+.rate-form label:hover {
+    color: #ffcc00;
+}
+
+.rate-form label:hover ~ label {
+    color: #ffcc00;
+}
+
+.rate-form input[type=radio]:checked ~ label {
+    color: #ffcc00;
+}
+
+/* 店舗一覧のレビュー表示機能 */
+.review_list_group {
+    list-style: none;
+    padding-left: 0;
+}
