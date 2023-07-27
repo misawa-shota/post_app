@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Store;
-use App\MOdels\Category;
+use App\Models\Category;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class StoreController extends Controller
@@ -15,7 +16,10 @@ class StoreController extends Controller
     {
         //
         $stores = Store::all();
-        return view('stores.index', compact('stores'));
+        $stores_star_average = Review::select('store_id')->selectRaw('AVG(star_count) AS star_average')->groupBy('store_id')->get();
+        $stores_review_count = Review::select('store_id')->selectRaw('COUNT(id) as count_review')->groupBy('store_id')->get();
+
+        return view('stores.index', compact('stores', 'stores_star_average', 'stores_review_count'));
     }
 
     /**
@@ -75,7 +79,11 @@ class StoreController extends Controller
     public function show(Store $store)
     {
         //
-        return view('stores.show', compact('store'));
+        $reviews = $store->reviews()->get();
+        $stores_star_average = Review::select('store_id')->selectRaw('AVG(star_count) AS star_average')->groupBy('store_id')->get();
+        $stores_review_count = Review::select('store_id')->selectRaw('COUNT(id) as count_review')->groupBy('store_id')->get();
+
+        return view('stores.show', compact('store', 'reviews', 'stores_star_average', 'stores_review_count'));
     }
 
     /**

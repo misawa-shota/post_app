@@ -21,6 +21,28 @@
                                             <span class="me-2">{{ $category->name }}</span>
                                         @endforeach
                                     </dd>
+                                    <dd>
+                                        <ul class="d-flex align-items-center review_list_group">
+                                            @foreach ($stores_star_average as $store_star_average)
+                                                @if ($store_star_average->store_id == $store->id)
+                                                    <li><span class="rate" style="--score: {{ $store_star_average->star_average }}"></span></li>
+                                                    <li><span class="mx-3">{{ round($store_star_average->star_average, 1) }}</span></li>
+                                                @endif
+                                            @endforeach
+                                            @if (!DB::table('reviews')->where('store_id', $store->id)->exists())
+                                                <li><span class="rate" style="--score: {{ 0 }}"></span></li>
+                                                <li><span class="mx-3">0.0</span></li>
+                                            @endif
+                                            @foreach ($stores_review_count as $store_review_count)
+                                                @if ($store_review_count->store_id == $store->id)
+                                                    <li><span>({{ $store_review_count->count_review }})件</span></li>
+                                                @endif
+                                            @endforeach
+                                            @if (!DB::table('reviews')->where('store_id', $store->id)->exists())
+                                                <li><span>(0)件</span></li>
+                                            @endif
+                                        </ul>
+                                    </dd>
                                     <dd>{{ $store->price }}</dd>
                                     <dd>{!! nl2br(e($store->store_description)) !!}</dd>
                                 </dl>
