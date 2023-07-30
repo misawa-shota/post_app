@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Review;
+use Overtrue\LaravelFavorite\Traits\Favoriteable;
 
 class Store extends Model
 {
-    use HasFactory;
+    use HasFactory, Favoriteable;
 
     public function categories()
     {
