@@ -13,14 +13,31 @@ class StoreController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $stores = Store::paginate(15);
+        $keyword = $request->input('keyword');
+
+        if (!empty($keyword)) {
+
+            $stores = Store::where('store_name', 'LIKE', "%{$keyword}%")->paginate(15);
+        } else {
+            $stores = Store::paginate(15);
+        }
+
+        if (!empty()) {
+            # code...
+        } else {
+            # code...
+        }
+
+
+        $categories = Category::all();
+
         $stores_star_average = Review::select('store_id')->selectRaw('AVG(star_count) AS star_average')->groupBy('store_id')->get();
         $stores_review_count = Review::select('store_id')->selectRaw('COUNT(id) as count_review')->groupBy('store_id')->get();
 
-        return view('stores.index', compact('stores', 'stores_star_average', 'stores_review_count'));
+        return view('stores.index', compact('stores', 'keyword', 'categories', 'stores_star_average', 'stores_review_count'));
     }
 
     /**
