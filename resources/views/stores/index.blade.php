@@ -52,5 +52,8 @@
                 </span>
             </a>
         @endforeach
+        <div class="d-flex justify-content-center">
+            {{ $stores->links() }}
+        </div>
     </div>
 @endsection

@@ -152,6 +152,19 @@
                     @endforeach
                 </div>
             </div>
+            <div class="my-5 text-center">
+                @if ($store->isFavoritedBy(Auth::user()))
+                    <a href="{{ route('stores.favorite', $store) }}" class="btn btn-primary" role="button">
+                        <i class="fa fa-heart"></i>
+                        お気に入り解除
+                    </a>
+                @else
+                    <a href="{{ route('stores.favorite', $store) }}" class="btn btn-primary" role="button">
+                        <i class="fa fa-heart"></i>
+                        お気に入り登録
+                    </a>
+                @endif
+            </div>
         </div>
     </div>
 @endsection

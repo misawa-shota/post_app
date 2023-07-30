@@ -6,6 +6,7 @@ use App\Models\Store;
 use App\Models\Category;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
 {
@@ -15,7 +16,7 @@ class StoreController extends Controller
     public function index()
     {
         //
-        $stores = Store::all();
+        $stores = Store::paginate(15);
         $stores_star_average = Review::select('store_id')->selectRaw('AVG(star_count) AS star_average')->groupBy('store_id')->get();
         $stores_review_count = Review::select('store_id')->selectRaw('COUNT(id) as count_review')->groupBy('store_id')->get();
 
@@ -145,5 +146,12 @@ class StoreController extends Controller
         $store->delete();
 
         return redirect()->route('store.index')->with('flash_message', '店舗情報を削除しました。');
+    }
+
+    public function favorite(Store $store)
+    {
+        Auth::user()->togglefavorite($store);
+
+        return back();
     }
 }

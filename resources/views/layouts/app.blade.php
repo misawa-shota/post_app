@@ -28,6 +28,7 @@
         @component('components.footer')
         @endcomponent
     </div>
+    <script src="https://kit.fontawesome.com/746bef7c17.js" crossorigin="anonymous"></script>
     <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

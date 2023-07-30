@@ -25,6 +25,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('stores/{store}/favorite', [StoreController::class, 'favorite'])->name('stores.favorite');
 Route::resource('stores', StoreController::class);
 
 Route::post('reviews', [ReviewController::class, 'store'])->name('reviews.store');
