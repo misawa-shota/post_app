@@ -25,21 +25,29 @@ class StoreController extends Controller
         $price = $request->input('price');
 
         if (!empty($keyword)) {
-            $stores = Store::where('store_name', 'LIKE', "%{$keyword}%")->paginate(15);
+            $stores = Store::where('store_name', 'LIKE', "%{$keyword}%");
+            $count = $stores->count();
+            $stores = $stores->paginate(15);
         } elseif(!empty($category)) {
             $stores = Store::whereHas('categories', function ($query) use ($category){
                 $query->where('name', 'LIKE', "$category");
-            })->paginate(15);
+            });
+            $count = $stores->count();
+            $stores = $stores->paginate(15);
         } elseif(!empty($price)) {
-            $stores = Store::where('price', 'LIKE', "$price")->paginate(15);
+            $stores = Store::where('price', 'LIKE', "$price");
+            $count = $stores->count();
+            $stores = $stores->paginate(15);
         } else {
+            $stores = Store::all();
+            $count = $stores->count();
             $stores = Store::paginate(15);
         }
 
         $stores_star_average = Review::select('store_id')->selectRaw('AVG(star_count) AS star_average')->groupBy('store_id')->get();
         $stores_review_count = Review::select('store_id')->selectRaw('COUNT(id) as count_review')->groupBy('store_id')->get();
 
-        return view('stores.index', compact('stores', 'keyword', 'categories', 'prices', 'stores_star_average', 'stores_review_count'));
+        return view('stores.index', compact('stores', 'keyword', 'categories', 'prices', 'count', 'stores_star_average', 'stores_review_count'));
     }
 
     /**

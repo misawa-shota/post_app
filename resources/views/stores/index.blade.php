@@ -51,6 +51,7 @@
                 @if (session('flash_message'))
                     <p class="text-primary">{{ session('flash_message') }}</p>
                 @endif
+                <p class="fs-4">{{ $count }}件の店舗が見つかりました。</p>
                 @foreach ($stores as $store)
                     <a href="{{ route('stores.show', $store->id) }}" class="store_card text-decoration-none mb-3">
                         <span class="card store_card_label">
