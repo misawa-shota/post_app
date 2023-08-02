@@ -7,20 +7,47 @@ use App\Models\Category;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class StoreController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $stores = Store::paginate(15);
+        $categories = Category::all();
+        $prices = Store::distinct('price')->orderByRaw('CAST(price as SIGNED) ASC')->get('price');
+
+        $keyword = $request->input('keyword');
+        $category = $request->input('category');
+        $price = $request->input('price');
+
+        if (!empty($keyword)) {
+            $stores = Store::where('store_name', 'LIKE', "%{$keyword}%");
+            $count = $stores->count();
+            $stores = $stores->paginate(15);
+        } elseif(!empty($category)) {
+            $stores = Store::whereHas('categories', function ($query) use ($category){
+                $query->where('name', 'LIKE', "$category");
+            });
+            $count = $stores->count();
+            $stores = $stores->paginate(15);
+        } elseif(!empty($price)) {
+            $stores = Store::where('price', 'LIKE', "$price");
+            $count = $stores->count();
+            $stores = $stores->paginate(15);
+        } else {
+            $stores = Store::all();
+            $count = $stores->count();
+            $stores = Store::paginate(15);
+        }
+
         $stores_star_average = Review::select('store_id')->selectRaw('AVG(star_count) AS star_average')->groupBy('store_id')->get();
         $stores_review_count = Review::select('store_id')->selectRaw('COUNT(id) as count_review')->groupBy('store_id')->get();
 
-        return view('stores.index', compact('stores', 'stores_star_average', 'stores_review_count'));
+        return view('stores.index', compact('stores', 'keyword', 'categories', 'prices', 'count', 'stores_star_average', 'stores_review_count'));
     }
 
     /**
