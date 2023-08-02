@@ -29,6 +29,22 @@
                         </form>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-header">
+                        価格帯から探す
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('stores.index') }}" method="get">
+                            <select name="price" id="" class="w-100 mb-3">
+                                <option value="">選択してください</option>
+                                @foreach ($prices as $price)
+                                    <option value="{{ $price->price }}">{{ $price->price }}</option>
+                                @endforeach
+                            </select>
+                            <button type="submit" class="btn btn-primary w-100">検索</button>
+                        </form>
+                    </div>
+                </div>
             </div>
             {{-- 店舗一覧表示カラム --}}
             <div class="col-9">
