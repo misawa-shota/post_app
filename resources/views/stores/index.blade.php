@@ -51,7 +51,25 @@
                 @if (session('flash_message'))
                     <p class="text-primary">{{ session('flash_message') }}</p>
                 @endif
-                <p class="fs-4">{{ $count }}件の店舗が見つかりました。</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="fs-4">{{ $count }}件の店舗が見つかりました。</p>
+                    <form action="{{ route('stores.index') }}" method="get">
+                        <select name="sort" onchange="this.form.submit()" class="form-select">
+                            <option value=""
+                                @if ($sort == '') selected @endif
+                            >並べ替え</option>
+                            <option value="create_timestamp"
+                                @if ($sort == 'create_timestamp') selected @endif
+                            >掲載日が新しい順</option>
+                            <option value="price_asc"
+                                @if ($sort == 'price_asc') selected @endif
+                            >価格が安い順</option>
+                            <option value="star_desc"
+                                @if ($sort == 'star_desc') selected @endif
+                            >評価が高い順</option>
+                        </select>
+                    </form>
+                </div>
                 @foreach ($stores as $store)
                     <a href="{{ route('stores.show', $store->id) }}" class="store_card text-decoration-none mb-3">
                         <span class="card store_card_label">

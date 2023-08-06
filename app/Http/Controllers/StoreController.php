@@ -23,6 +23,7 @@ class StoreController extends Controller
         $keyword = $request->input('keyword');
         $category = $request->input('category');
         $price = $request->input('price');
+        $sort = $request->input('sort');
 
         if (!empty($keyword)) {
             $stores = Store::where('store_name', 'LIKE', "%{$keyword}%");
@@ -38,6 +39,26 @@ class StoreController extends Controller
             $stores = Store::where('price', 'LIKE', "$price");
             $count = $stores->count();
             $stores = $stores->paginate(15);
+        } elseif(!empty($sort)) {
+            if ($sort == 'create_timestamp') {
+                $stores = Store::select("*");
+                $count = $stores->count();
+                $stores = $stores->orderBy('created_at', 'desc')->paginate(15);
+            } elseif ($sort == 'price_asc') {
+                $stores = Store::select("*");
+                $count = $stores->count();
+                $stores = $stores->orderByRaw('CAST(price as SIGNED) ASC')->paginate(15);
+            } elseif($sort == 'star_desc') {
+                $stores = Store::select("*");
+                $count = $stores->count();
+                $review_table = Review::select('store_id')->selectRaw('AVG(star_count) AS star_average')->groupBy('store_id');
+                $stores = Store::select("*")
+                ->leftJoinSub($review_table, 'reviews', function($query){
+                    $query->on('stores.id', '=', 'reviews.store_id');
+                })
+                ->orderBy('star_average', 'desc')
+                ->paginate(15);
+            }
         } else {
             $stores = Store::all();
             $count = $stores->count();
@@ -45,9 +66,9 @@ class StoreController extends Controller
         }
 
         $stores_star_average = Review::select('store_id')->selectRaw('AVG(star_count) AS star_average')->groupBy('store_id')->get();
-        $stores_review_count = Review::select('store_id')->selectRaw('COUNT(id) as count_review')->groupBy('store_id')->get();
+        $stores_review_count = Review::select('store_id')->selectRaw('COUNT(id) AS count_review')->groupBy('store_id')->get();
 
-        return view('stores.index', compact('stores', 'keyword', 'categories', 'prices', 'count', 'stores_star_average', 'stores_review_count'));
+        return view('stores.index', compact('stores', 'keyword', 'categories', 'prices', 'count', 'sort', 'stores_star_average', 'stores_review_count'));
     }
 
     /**
