@@ -17,7 +17,7 @@ use App\Http\Controllers\WebController;
 |
 */
 
-Route::get('/', [WebController::class, 'index']);
+Route::get('/', [WebController::class, 'index'])->name('web.index');
 
 Route::resource('stores', StoreController::class)->middleware(['auth', 'verified']);
 Auth::routes(['verify' => true]);
