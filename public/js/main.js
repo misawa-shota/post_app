@@ -1,3 +1,15 @@
+// swiper
+const mySwiper = new Swiper('.swiper', {
+    loop: true,
+    effect: "fade",
+    speed: 2000,
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
+});
+
+// 店舗詳細のタブ切り替え
 const navInfo = document.getElementById('nav_infomation');
 const navReview = document.getElementById('nav_review');
 const areaInfo = document.getElementById('area_infomation');
@@ -16,3 +28,4 @@ navReview.addEventListener('click', function() {
     this.previousElementSibling.classList.remove('active');
     areaReview.classList.add('active');
 });
+

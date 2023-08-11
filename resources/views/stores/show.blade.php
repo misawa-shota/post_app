@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container my-5">
         <div class="col-6 mx-auto">
             <div>
+                <a href="{{ route('web.index') }}" class="text-decoration-none"><small>ホーム</small></a>
+                <span>></span>
                 <a href="{{ route('stores.index') }}" class="text-decoration-none"><small>店舗一覧</small></a>
                 <span>></span>
                 <small>店舗詳細</small>

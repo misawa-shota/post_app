@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
+    <div class="container my-5">
+        <div>
+            <a href="{{ route('web.index') }}" class="text-decoration-none"><small>ホーム</small></a>
+            <span>></span>
+            <small>店舗一覧</small>
+        </div>
+        <div class="row my-5">
             {{-- 検索エリアカラム --}}
             <div class="col-3">
                 <div>

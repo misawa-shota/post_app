@@ -1,3 +1,86 @@
+/* webfont */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
+
+/* トップページ */
+.swiper {
+    height: 500px;
+    position: relative;
+}
+
+.catch_flase {
+    position: absolute;
+    top: 40%;
+    left: 15%;
+    z-index: 10;
+}
+
+.catch_flase > h2,
+.catch_flase > p {
+    font-family: 'Noto Serif JP', serif;
+}
+
+.catch_flase > h2 {
+    line-height: 3rem;
+}
+
+.swiper-slide {
+    background-color: black;
+}
+
+.swiper-slide > img {
+    transform: translateY(-300px);
+    opacity: 0.6;
+}
+
+.index_area {
+    background-color: #D9D9D9;
+}
+
+.toppage_card:hover {
+    opacity: 0.8;
+}
+
+.card_img_top_size {
+    height: 110px;
+}
+
+.toppage_rate {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 10px;
+    font-size: 10px;
+}
+
+.toppage_rate::before,
+.toppage_rate::after {
+    position: absolute;
+    display: inline-block;
+    height: 10px;
+    content: '★★★★★';
+    line-height: 10px;
+}
+
+.toppage_rate::before {
+    color: #c4c4c4;
+}
+
+.toppage_rate::after {
+    overflow: hidden;
+    width: calc(var(--score) * 10px);
+    color: #ffb906;
+}
+
+.category_button {
+    color: #d9d9d9;
+}
+
+.category_button:hover {
+    color: white;
+    background-color: grey;
+}
+
+/* 店舗一覧ページ */
 .store_card,
 .store_card_label {
     display: block;
@@ -11,7 +94,13 @@
     background-color: #D9D9D9;
 }
 
-/* 詳細ページ */
+/* 店舗一覧のレビュー表示機能 */
+.review_list_group {
+    list-style: none;
+    padding-left: 0;
+}
+
+/* 店舗詳細ページ */
 .nav-item.active {
     background-color: blue;
     border-radius: 6px 6px 0 0;
@@ -92,8 +181,4 @@
     color: #ffcc00;
 }
 
-/* 店舗一覧のレビュー表示機能 */
-.review_list_group {
-    list-style: none;
-    padding-left: 0;
-}
+
