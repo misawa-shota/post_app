@@ -71,6 +71,15 @@
     color: #ffb906;
 }
 
+.category_button {
+    color: #d9d9d9;
+}
+
+.category_button:hover {
+    color: white;
+    background-color: grey;
+}
+
 /* 店舗一覧ページ */
 .store_card,
 .store_card_label {

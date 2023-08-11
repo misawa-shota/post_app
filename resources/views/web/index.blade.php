@@ -22,7 +22,7 @@
         <div class="container">
             <div class="col-3 py-5">
                 <h2>店舗名から探す</h2>
-                <form action="{{ route('stores.index') }}" action="get">
+                <form action="{{ route('stores.index') }}" method="get">
                     <div class="input-group">
                         <input type="text" name="keyword" placeholder="店舗名" class="form-control w-75">
                         <button type="submit" class="btn btn-primary">検索</button>
@@ -66,6 +66,21 @@
                         </div>
                     </a>
                 </div>
+                @endforeach
+            </div>
+        </div>
+        <div class="row my-5">
+            <h3>カテゴリから検索</h3>
+            <div class="d-flex justify-content-space-between">
+                @foreach ($categories as $category)
+                    <form action="{{ route('stores.index') }}" method="get">
+                        <span class="border border-secondary rounded-2 me-2 category_button">
+                            <input type="hidden" name="category" value="{{ $category->name }}">
+                            <button type="submit" class="btn">
+                                {{ $category->name }}
+                            </button>
+                        </span>
+                    </form>
                 @endforeach
             </div>
         </div>

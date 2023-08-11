@@ -25,8 +25,10 @@ class WebController extends Controller
         $stores_star_average = Review::select('store_id')->selectRaw('AVG(star_count) AS star_average')->groupBy('store_id')->get();
         $stores_review_count = Review::select('store_id')->selectRaw('COUNT(id) AS count_review')->groupBy('store_id')->get();
 
+        $categories = Category::all();
+
         $new_stores = Store::select("*")->orderBy('updated_at', 'desc')->limit('6')->get();
 
-        return view('web.index', compact('stores', 'stores_star_average', 'stores_review_count', 'new_stores'));
+        return view('web.index', compact('stores', 'stores_star_average', 'stores_review_count','categories', 'new_stores'));
     }
 }
